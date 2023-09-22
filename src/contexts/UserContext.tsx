@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { User } from "../types";
+import { User } from "../mocks/data/usersData";
 
 type UserContextType = {
   users: User[];

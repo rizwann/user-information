@@ -1,10 +1,9 @@
-import "./App.css";
+import Users from "./components/Users";
 import { UserProvider } from "./contexts/UserContext";
-
 function App() {
   return (
     <UserProvider>
-      <div>Test</div>
+      <Users />
     </UserProvider>
   );
 }

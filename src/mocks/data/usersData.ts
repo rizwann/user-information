@@ -1,6 +1,4 @@
-// a json object to be used as mock data
-
-export const usersData = [
+export const users = [
   {
     id: 1,
     name: "John Doe",
@@ -182,3 +180,4 @@ export const usersData = [
     birthDate: "1993-07-08",
   },
 ];
+export type User = (typeof users)[number];

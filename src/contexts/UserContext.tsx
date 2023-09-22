@@ -31,8 +31,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const fetchUsers = async () => {
       try {
         const res = await fetch("/api/users");
-        const users = await res.json();
-        setUsers(users);
+        const fetchedUsers = await res.json();
+        setUsers(fetchedUsers);
       } catch (error) {
         console.log("Error fetching users data", error);
       }
@@ -41,6 +41,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     fetchUsers();
   }, []);
 
+  console.log(users);
   const contextValue: UserContextType = {
     users,
   };

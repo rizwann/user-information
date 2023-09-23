@@ -13,7 +13,11 @@ const Users: React.FC = () => {
       age: getAge(user.birthDate),
     };
   });
-  return <UsersDataTable columns={columns} data={newUsers} />;
+  return (
+    <div className="container py-10 mx-auto">
+      <UsersDataTable columns={columns} data={newUsers} />;
+    </div>
+  );
 };
 
 export default Users;

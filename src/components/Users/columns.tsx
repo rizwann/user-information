@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Copy, MoreHorizontal } from "lucide-react";
-import { getAge } from "../../lib/utils";
+import { ArrowDownUp, Copy, MoreHorizontal } from "lucide-react";
 import { User } from "../../mocks/data/usersData";
 import { Button } from "../ui/button";
 import {
@@ -13,15 +12,51 @@ import {
 
 export const columns: ColumnDef<User>[] = [
   {
-    header: "User ID",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          User Id
+          <ArrowDownUp className="w-4 h-4 ml-2" />
+        </Button>
+      );
+    },
     accessorKey: "id",
   },
   {
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Name
+          <ArrowDownUp className="w-4 h-4 ml-2" />
+        </Button>
+      );
+    },
     accessorKey: "name",
   },
   {
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Email
+          <ArrowDownUp className="w-4 h-4 ml-2" />
+        </Button>
+      );
+    },
     accessorKey: "email",
   },
   {
@@ -30,16 +65,25 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("birthDate"));
       const formattedDate = date.toLocaleDateString();
-      return <div className="font-medium"> {formattedDate}</div>;
+      return <div> {formattedDate}</div>;
     },
   },
   {
-    header: "Age",
-    accessorKey: "age",
-    cell: ({ row }) => {
-      const age = getAge(row.getValue("birthDate"));
-      return <div className="font-medium">{age}</div>;
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Age
+          <ArrowDownUp className="w-4 h-4 ml-2" />
+        </Button>
+      );
     },
+
+    accessorKey: "age",
   },
   {
     id: "actions",

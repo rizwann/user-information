@@ -13,7 +13,6 @@ import {
 
 import { Settings2 } from "lucide-react";
 import { useState } from "react";
-import { ThemeToggle } from "../theme/themeToggle";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -109,7 +108,6 @@ export const UsersDataTable = <TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
-        <ThemeToggle className="ml-4" />
       </div>
       {/* Actual Table */}
       <div className="border rounded-md ">

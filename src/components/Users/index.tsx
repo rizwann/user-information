@@ -1,13 +1,19 @@
 import React from "react";
 import { useUser } from "../../contexts/UserContext";
+import { getAge } from "../../lib/utils";
 import { columns } from "./columns";
 import { UsersDataTable } from "./data-table";
 
-type Props = {};
-
-const Users: React.FC<Props> = () => {
+const Users: React.FC = () => {
   const { users } = useUser();
-  return <UsersDataTable columns={columns} data={users} />;
+
+  const newUsers = users.map((user) => {
+    return {
+      ...user,
+      age: getAge(user.birthDate),
+    };
+  });
+  return <UsersDataTable columns={columns} data={newUsers} />;
 };
 
 export default Users;

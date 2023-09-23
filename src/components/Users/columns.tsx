@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDownUp, Copy, MoreHorizontal } from "lucide-react";
-import { getAge } from "../../lib/utils";
 import { User } from "../../mocks/data/usersData";
 import { Button } from "../ui/button";
 import {
@@ -66,7 +65,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("birthDate"));
       const formattedDate = date.toLocaleDateString();
-      return <div className="font-medium"> {formattedDate}</div>;
+      return <div> {formattedDate}</div>;
     },
   },
   {
@@ -84,11 +83,7 @@ export const columns: ColumnDef<User>[] = [
       );
     },
 
-    accessorKey: "birthDate",
-    cell: ({ row }) => {
-      const age = getAge(row.getValue("birthDate"));
-      return <div className="font-medium">{age}</div>;
-    },
+    accessorKey: "age",
   },
   {
     id: "actions",

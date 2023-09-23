@@ -1,14 +1,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDownUp, Copy, MoreHorizontal } from "lucide-react";
-import { User } from "../../mocks/data/usersData";
-import { Button } from "../ui/button";
+import { User } from "../../../mocks/data/usersData";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 
 export const columns: ColumnDef<User>[] = [
   {

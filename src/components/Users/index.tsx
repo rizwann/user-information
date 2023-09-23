@@ -1,8 +1,8 @@
 import React from "react";
 import { useUser } from "../../hooks/useUser";
 import { getAge } from "../../lib/utils";
-import { columns } from "./columns";
-import { UsersDataTable } from "./data-table";
+import { UsersDataTable } from "./usersDataTable";
+import { columns } from "./usersDataTable/columns";
 
 const Users: React.FC = () => {
   const { users } = useUser();

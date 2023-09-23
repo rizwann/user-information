@@ -13,15 +13,16 @@ import {
 
 import { Settings2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Input } from "../ui/input";
+} from "../../ui/dropdown-menu";
+import { Input } from "../../ui/input";
+
 import {
   Table,
   TableBody,
@@ -29,8 +30,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import { DataTablePagination } from "./data-table-pagination";
+} from "../../ui/table";
+import { Pagination } from "./pagination";
 interface UsersDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -155,7 +156,7 @@ export const UsersDataTable = <TData, TValue>({
         </Table>
       </div>
       {/* Pagination */}
-      <DataTablePagination table={table} />
+      <Pagination table={table} />
     </div>
   );
 };

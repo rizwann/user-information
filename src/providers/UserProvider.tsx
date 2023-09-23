@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserContext, UserContextType } from "../contexts/UserContext";
+import { fetchUsers } from "../lib/utils";
 import { User } from "../mocks/data/usersData";
 
 type UserProviderProps = {
@@ -8,20 +9,14 @@ type UserProviderProps = {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [users, setUsers] = useState<User[]>([]);
+  const URL = "/api/users";
 
   useEffect(() => {
-    // mock-fetch users from api
-    const fetchUsers = async () => {
-      try {
-        const res = await fetch("/api/users");
-        const fetchedUsers = await res.json();
-        setUsers(fetchedUsers);
-      } catch (error) {
-        console.log("Error fetching users data", error);
-      }
+    const fetchData = async () => {
+      const data = await fetchUsers(URL);
+      setUsers(data);
     };
-
-    fetchUsers();
+    fetchData();
   }, []);
 
   const contextValue: UserContextType = {

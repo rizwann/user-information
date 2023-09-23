@@ -6,10 +6,13 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b-2 bg-background">
       <div className="container flex items-center h-16 space-x-4">
-        <a href="/" className="flex items-center mr-2 space-x-2 md:mr-6">
+        <h1
+          className="flex items-center mr-2 space-x-2 md:mr-6"
+          data-testid="header"
+        >
           <Grid2X2 className="w-4 h-4" aria-hidden="true" />
           <span className="hidden font-bold md:inline-block">React Table</span>
-        </a>
+        </h1>
         <nav className="flex items-center flex-1 space-x-6 text-sm font-medium">
           <a
             href={"https://en.ryte.com/"}
@@ -17,11 +20,12 @@ export function Header() {
             className={cn(
               "flex items-center text-sm font-medium transition-colors hover:text-foreground/80"
             )}
+            data-testid="ryte-link"
           >
             Ryte
           </a>
         </nav>
-        <ThemeToggle className="ml-4" />
+        <ThemeToggle className="ml-4" data-testid="theme-toggle" />
       </div>
     </header>
   );

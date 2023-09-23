@@ -84,6 +84,11 @@ export const columns: ColumnDef<User>[] = [
     },
 
     accessorKey: "age",
+    cell: ({ row }) => {
+      const age: number = row.getValue("age");
+
+      return <div className="ml-2"> {age} years</div>;
+    },
   },
   {
     id: "actions",

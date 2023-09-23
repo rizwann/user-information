@@ -11,12 +11,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Settings2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Input } from "../ui/input";
@@ -28,7 +30,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-
+import { DataTablePagination } from "./data-table-pagination";
 interface UsersDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -63,6 +65,7 @@ export const UsersDataTable = <TData, TValue>({
       {/* Filters */}
       <div className="flex items-center py-4">
         <Input
+          aria-label="Search by name, email, or age"
           type="search"
           placeholder="Search by name, email, or age"
           className="max-w-sm"
@@ -72,12 +75,20 @@ export const UsersDataTable = <TData, TValue>({
         />
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4">
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="hidden ml-auto lg:flex"
+              aria-label="Column View"
+            >
+              <Settings2 className="w-4 h-4 mr-2" />
               Columns
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuLabel className="pb-2 border-b-2">
+              Toggle Columns
+            </DropdownMenuLabel>
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
@@ -122,7 +133,6 @@ export const UsersDataTable = <TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
-                console.log(row);
                 return (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
@@ -145,28 +155,7 @@ export const UsersDataTable = <TData, TValue>({
         </Table>
       </div>
       {/* Pagination */}
-      <div className="flex items-center justify-end py-4 space-x-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <DataTablePagination table={table} />
     </div>
   );
 };

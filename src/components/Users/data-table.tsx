@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useState } from "react";
+import { ThemeToggle } from "../theme/ThemeToggle";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -97,6 +98,7 @@ export const UsersDataTable = <TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
+        <ThemeToggle className="ml-4" />
       </div>
       {/* Actual Table */}
       <div className="border rounded-md ">
@@ -122,7 +124,6 @@ export const UsersDataTable = <TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
-                console.log(row);
                 return (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (

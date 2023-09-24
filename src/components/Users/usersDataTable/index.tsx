@@ -119,7 +119,10 @@ export const UsersDataTable = <TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((column) => {
                     return (
-                      <TableHead key={column.id}>
+                      <TableHead
+                        key={column.id}
+                        data-testid={`${column.id}-column`}
+                      >
                         {flexRender(
                           column.column.columnDef.header,
                           column.getContext()

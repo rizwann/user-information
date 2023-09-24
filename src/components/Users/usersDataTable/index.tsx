@@ -13,7 +13,6 @@ import {
 
 import { Settings2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -23,6 +22,7 @@ import {
 } from "../../ui/dropdown-menu";
 import { Input } from "../../ui/input";
 
+import Button from "../../ui/button";
 import {
   Table,
   TableBody,

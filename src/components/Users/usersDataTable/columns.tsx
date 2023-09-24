@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDownUp, Copy, MoreHorizontal } from "lucide-react";
 import { User } from "../../../mocks/data/usersData";
-import { Button } from "../../ui/button";
+import Button from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,

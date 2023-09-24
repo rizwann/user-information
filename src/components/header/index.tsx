@@ -1,4 +1,4 @@
-import { Grid2X2 } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 export function Header() {
@@ -9,7 +9,7 @@ export function Header() {
           className="flex items-center mr-2 space-x-2 md:mr-6"
           data-testid="header"
         >
-          <Grid2X2 className="w-4 h-4" aria-hidden="true" />
+          <Check className="w-6 h-6 text-green-900" aria-hidden="true" />
           <span className="font-bold">React Table</span>
         </h1>
         <nav className="flex items-center flex-1 space-x-6 text-sm font-medium">

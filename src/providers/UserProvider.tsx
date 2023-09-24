@@ -23,6 +23,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     users: users.map((user) => {
       return {
         ...user,
+        birthDate: new Date(user.birthDate).toLocaleDateString(),
         age: getAge(user.birthDate),
       };
     }),

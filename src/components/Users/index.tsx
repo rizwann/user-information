@@ -1,6 +1,5 @@
 import React from "react";
 import { useUser } from "../../hooks/useUser";
-import { getAge } from "../../lib/utils";
 import UsersTable, { TableColumn } from "./UsersTable";
 const columns = [
   { header: "ID", accessor: "id" },
@@ -12,16 +11,9 @@ const columns = [
 
 const Users: React.FC = () => {
   const { users } = useUser();
-
-  const newUsers = users.map((user) => {
-    return {
-      ...user,
-      age: getAge(user.birthDate),
-    };
-  });
   return (
     <div className="container py-10 mx-auto">
-      <UsersTable columns={columns} data={newUsers} />
+      <UsersTable columns={columns} data={users} />
     </div>
   );
 };

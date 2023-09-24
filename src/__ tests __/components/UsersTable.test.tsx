@@ -1,84 +1,87 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import { UsersDataTable } from "../../components/users/usersDataTable";
+import { fireEvent, render } from "@testing-library/react";
+import UsersTable from "../../components/users/UsersTable";
+import { mockColumns, mockUsersWithAge } from "../../test/__ mocks __/mockData";
 
-// Mock data
-const mockData = [
-  {
-    id: 1,
-    name: "Myrah Wilton",
-    email: "mwilton0@abc.net.au",
-    birthDate: "1987-04-04",
-    age: 34,
-  },
-  {
-    id: 2,
-    name: "Ole Patridge",
-    email: "opatridge1@mediafire.com",
-    birthDate: "1990-09-01",
-    age: 30,
-  },
-  {
-    id: 3,
-    name: "Dixie Rowet",
-    email: "drowet2@latimes.com",
-    birthDate: "1975-08-18",
-    age: 46,
-  },
-];
-const mockColumns = [
-  {
-    header: "Name",
-    accessorKey: "name",
-    id: "name",
-  },
-  {
-    header: "Email",
-    accessorKey: "email",
-    id: "email",
-  },
-  {
-    header: "Birth Date",
-    accessorKey: "birthDate",
-    id: "birthDate",
-  },
-  {
-    header: "Age",
-    accessorKey: "age",
-    id: "age",
-  },
-  {
-    header: "actions",
-    accessorKey: "actions",
-    id: "actions",
-  },
-];
-describe("UsersDataTable component", () => {
-  it("renders the component with data", () => {
-    render(<UsersDataTable columns={mockColumns} data={mockData} />);
+describe("table component", () => {
+  it("should render correctly", () => {
+    const { getByText } = render(
+      <UsersTable columns={mockColumns} data={mockUsersWithAge} />
+    );
 
-    // Assert that the component is rendered
-    const dataTable = screen.getByTestId("user-data-table");
-    expect(dataTable).toBeInTheDocument();
-    const nameColumn = screen.getByText("Name");
-    const emailColumn = screen.getByText("Email");
-    const birthDateColumn = screen.getByText("Birth Date");
-    const ageColumn = screen.getByText("Age");
-    expect(nameColumn).toBeInTheDocument();
-    expect(nameColumn).toHaveAttribute("data-testid", "name-column");
-    expect(emailColumn).toBeInTheDocument();
-    expect(emailColumn).toHaveAttribute("data-testid", "email-column");
-    expect(birthDateColumn).toBeInTheDocument();
-    expect(birthDateColumn).toHaveAttribute("data-testid", "birthDate-column");
-    expect(ageColumn).toBeInTheDocument();
-    expect(ageColumn).toHaveAttribute("data-testid", "age-column");
+    // Test if the table headers are rendered
+    expect(getByText("Name")).toBeInTheDocument();
+    expect(getByText("Email")).toBeInTheDocument();
+    expect(getByText("Birth Date")).toBeInTheDocument();
+    expect(getByText("Age")).toBeInTheDocument();
+
+    // Test if the initial data is rendered (You can add more specific tests)
+    expect(getByText("John Doe")).toBeInTheDocument();
+    expect(getByText("john@example.com")).toBeInTheDocument();
   });
 
-  it("displays 'No Results' when data is empty", () => {
-    render(<UsersDataTable columns={[]} data={[]} />);
+  it("should sort data correctly", () => {
+    const { getByTestId } = render(
+      <UsersTable columns={mockColumns} data={mockUsersWithAge} />
+    );
 
-    // Assert that 'No Results' is displayed
-    const noResultsText = screen.getByText("No Results");
-    expect(noResultsText).toBeInTheDocument();
+    // Click on the "Name" column header to sort in ascending order
+    const nameHeader = getByTestId("column-name");
+    fireEvent.click(nameHeader);
+    // Verify if data is sorted correctly (You can add more specific tests)
+    expect(getByTestId("row-0")).toHaveTextContent("Dixie Rowet");
+
+    // Click on the "Name" column header to sort in descending order
+    fireEvent.click(nameHeader);
+    expect(getByTestId("row-0")).toHaveTextContent("Ole Patridge");
+
+    // Click on the "Age" column header to sort in ascending order
+    const ageHeader = getByTestId("column-age");
+    fireEvent.click(ageHeader);
+    expect(getByTestId("row-0")).toHaveTextContent("John Doe");
+
+    // Click on the "Age" column header to sort in descending order
+    fireEvent.click(ageHeader);
+    expect(getByTestId("row-0")).toHaveTextContent("Dixie Rowet");
+  });
+
+  it("should filter data correctly", () => {
+    const { getByPlaceholderText, getByText, getAllByTestId, getByTestId } =
+      render(<UsersTable columns={mockColumns} data={mockUsersWithAge} />);
+
+    // Enter search query "John Doe" into the search input
+    fireEvent.change(getByPlaceholderText("Search..."), {
+      target: { value: "John Doe" },
+    });
+
+    const rows = getAllByTestId(/^row-\d+$/);
+    const row = getByTestId("row-0");
+
+    // Verify if filtered data is displayed (You can add more specific tests)
+    expect(getByText("John Doe")).toBeInTheDocument();
+    expect(getByText("john@example.com")).toBeInTheDocument();
+    expect(getByText("1990-01-01")).toBeInTheDocument();
+    expect(row).toHaveTextContent("John Doe");
+    expect(rows).toHaveLength(1);
+  });
+
+  it("should reset filters correctly", () => {
+    const { getByPlaceholderText, getByTestId, getAllByTestId } = render(
+      <UsersTable columns={mockColumns} data={mockUsersWithAge} />
+    );
+
+    // Enter search query "John" into the search input
+    fireEvent.change(getByPlaceholderText("Search..."), {
+      target: { value: "john@example.com" },
+    });
+
+    // Click the "Reset Filters" button
+    const resetButton = getByTestId("reset-button");
+    fireEvent.click(resetButton);
+    const rows = getAllByTestId(/^row-\d+$/);
+    // Verify if the search input is empty and filtered data is cleared
+    expect(getByPlaceholderText("Search...")).toHaveValue("");
+    // all data is rendered, so the number of rows should be equal to the number of data
+    expect(rows).toHaveLength(4);
   });
 });

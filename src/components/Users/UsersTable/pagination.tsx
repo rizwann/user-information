@@ -20,14 +20,14 @@ const Pagination: React.FC<PaginationProps> = ({
   const isLastPage = currentPage === totalPages;
   const itemsPerPageOptions = [10, 20, 50]; // Options for rows per page
   return (
-    <div className="mt-4 flex flex-col md:flex-row items-center justify-between">
-      <div className="flex flex-col md:flex-row items-center">
+    <div className="flex flex-col items-center justify-between mt-4 md:flex-row">
+      <div className="flex flex-col items-center md:flex-row">
         <div className="md:mr-4">
           Rows per page:
           <select
             value={itemsPerPage}
             onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-            className="px-2 py-1 border rounded-lg ml-2"
+            className="px-2 py-1 ml-2 border rounded-lg"
           >
             {itemsPerPageOptions.map((option) => (
               <option key={option} value={option}>
@@ -36,12 +36,13 @@ const Pagination: React.FC<PaginationProps> = ({
             ))}
           </select>
         </div>
-        <div className="flex mt-2 md:mt-0 gap-1 md:gap-3">
+        <div className="flex gap-1 mt-2 md:mt-0 md:gap-3">
           <Button
             variant="secondary"
             size="sm"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={isFirstPage}
+            data-testid="previous-button"
           >
             Previous
           </Button>
@@ -50,12 +51,13 @@ const Pagination: React.FC<PaginationProps> = ({
             size="sm"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={isLastPage}
+            data-testid="next-button"
           >
             Next
           </Button>
         </div>
       </div>
-      <div className="mt-2 md:mt-0 text-center">
+      <div className="mt-2 text-center md:mt-0">
         Page {currentPage} of {totalPages}
       </div>
     </div>

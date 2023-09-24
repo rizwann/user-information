@@ -1,22 +1,29 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { TableUser } from "../../../contexts/UserContext";
 import Button from "../../ui/button";
 import Pagination from "./pagination";
 
 export type TableColumn = {
   header: string;
-  accessor: keyof TableUser;
+  accessor: keyof User;
 };
 
 type TableProps = {
   columns: TableColumn[];
-  data: TableUser[];
+  data: User[];
+};
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  birthDate: string;
+  age: number;
 };
 
 const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
   const [sortedData, setSortedData] = useState(data);
-  const [sortBy, setSortBy] = useState<keyof TableUser | null>(null);
+  const [sortBy, setSortBy] = useState<keyof User | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +85,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
   const currentData = sortedData.slice(startIndex, endIndex);
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
-  const handleSort = (column: keyof TableUser) => {
+  const handleSort = (column: keyof User) => {
     if (column === sortBy) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
@@ -96,6 +103,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
     setSortDirection("asc");
     setSearchQuery("");
   };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -115,8 +123,14 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
           className="px-2 py-1 border rounded-lg"
+          data-testid="search-input"
         />
-        <Button variant="destructive" onClick={handleResetFilter} size="sm">
+        <Button
+          variant="destructive"
+          onClick={handleResetFilter}
+          size="sm"
+          data-testid="reset-button"
+        >
           Reset Filters
         </Button>
       </div>
@@ -128,6 +142,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
                 key={column.accessor}
                 onClick={() => handleSort(column.accessor)}
                 className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-500 uppercase cursor-pointer hover:text-gray-700"
+                data-testid={`column-${column.accessor}`}
               >
                 <div className="flex items-center">
                   {column.header}
@@ -147,7 +162,11 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {currentData.map((row, index) => (
-            <tr key={row.id} className={index % 2 === 1 ? "bg-gray-100" : ""}>
+            <tr
+              key={row.id}
+              className={index % 2 === 1 ? "bg-gray-100" : ""}
+              data-testid={`row-${index}`} // Test ID added
+            >
               {columns.map((column) => (
                 <td
                   key={column.accessor}

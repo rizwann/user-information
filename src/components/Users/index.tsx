@@ -1,6 +1,7 @@
 import React from "react";
 import { useUser } from "../../hooks/useUser";
 import UsersTable, { TableColumn } from "./UsersTable";
+
 const columns = [
   { header: "ID", accessor: "id" },
   { header: "Name", accessor: "name" },

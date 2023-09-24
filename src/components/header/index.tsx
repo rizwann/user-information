@@ -11,7 +11,7 @@ export function Header() {
           data-testid="header"
         >
           <Grid2X2 className="w-4 h-4" aria-hidden="true" />
-          <span className="hidden font-bold md:inline-block">React Table</span>
+          <span className="font-bold">React Table</span>
         </h1>
         <nav className="flex items-center flex-1 space-x-6 text-sm font-medium">
           <a

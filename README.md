@@ -1,27 +1,68 @@
-# React + TypeScript + Vite
+# Demo: [User Info](https://ryte-table.netlify.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React TypeScript Vite User Table App
 
-Currently, two official plugins are available:
+This is a React application built with TypeScript and Vite that features a dynamic table with sorting, pagination, and searching functionalities. Data is fetched from mocked API using [Mock Service Worker](https://mswjs.io/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- [React.js](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com)
+- [StoryBook](https://storybook.js.org/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+Before you begin, ensure you have met the following requirements:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+- Node.js and npm (Node Package Manager) installed on your machine. You can download them from [https://nodejs.org/](https://nodejs.org/).
+
+## Getting Started
+
+To get this project up and running, follow these steps:
+
+1. Clone the repository to your local machine:
+
+   ```bash
+   git clone https://github.com/rizwann/user-information.git
+
+   cd user-information
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+
+## Running Storybook
+
+To run storybook, run the following command:
+
+```bash
+npm run storybook
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Running Tests
+
+To run tests, run the following command:
+
+```bash
+npm run test
+```
+
+## Building for Production
+
+To build the project for production, run the following command:
+
+```bash
+npm run build
+```

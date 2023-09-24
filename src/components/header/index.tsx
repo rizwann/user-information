@@ -1,6 +1,5 @@
 import { Grid2X2 } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { ThemeToggle } from "../theme/themeToggle";
 
 export function Header() {
   return (
@@ -25,7 +24,6 @@ export function Header() {
             Ryte
           </a>
         </nav>
-        <ThemeToggle className="ml-4" data-testid="theme-toggle" />
       </div>
     </header>
   );

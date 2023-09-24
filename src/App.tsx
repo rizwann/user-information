@@ -3,7 +3,7 @@ import Users from "./components/users";
 import { UserProvider } from "./providers/UserProvider";
 function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-background font-sans">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
         <UserProvider>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser } from "../../hooks/useUser";
+import { useUsers } from "../../hooks/useUsers";
 import UsersTable, { TableColumn } from "./UsersTable";
 
 const columns = [
@@ -11,7 +11,7 @@ const columns = [
 ] as TableColumn[];
 
 const Users: React.FC = () => {
-  const { users } = useUser();
+  const { users } = useUsers();
   return (
     <div className="container py-10 mx-auto">
       <UsersTable columns={columns} data={users} />

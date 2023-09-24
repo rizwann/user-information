@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserContext, UserContextType } from "../contexts/UserContext";
-import { fetchUsers } from "../lib/utils";
+import { fetchUsers, getAge } from "../lib/utils";
 import { User } from "../mocks/data/usersData";
 
 type UserProviderProps = {
@@ -20,7 +20,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, []);
 
   const contextValue: UserContextType = {
-    users,
+    users: users.map((user) => {
+      return {
+        ...user,
+        age: getAge(user.birthDate),
+      };
+    }),
   };
 
   return (

@@ -1,29 +1,22 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { TableUser } from "../../../contexts/UserContext";
 import Button from "../../ui/button";
 import Pagination from "./pagination";
 
 export type TableColumn = {
   header: string;
-  accessor: keyof User;
+  accessor: keyof TableUser;
 };
 
 type TableProps = {
   columns: TableColumn[];
-  data: User[];
-};
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  birthDate: string;
-  age: number;
+  data: TableUser[];
 };
 
 const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
   const [sortedData, setSortedData] = useState(data);
-  const [sortBy, setSortBy] = useState<keyof User | null>(null);
+  const [sortBy, setSortBy] = useState<keyof TableUser | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,7 +78,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
   const currentData = sortedData.slice(startIndex, endIndex);
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
-  const handleSort = (column: keyof User) => {
+  const handleSort = (column: keyof TableUser) => {
     if (column === sortBy) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
@@ -115,7 +108,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="mb-4 flex flex-col items-center md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-2">
+      <div className="flex flex-col items-center mb-4 space-y-2 md:flex-row md:items-start md:space-y-0 md:space-x-2">
         <input
           type="text"
           placeholder="Search..."
@@ -134,7 +127,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
               <th
                 key={column.accessor}
                 onClick={() => handleSort(column.accessor)}
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
+                className="px-6 py-3 text-xs font-bold tracking-wider text-left text-gray-500 uppercase cursor-pointer hover:text-gray-700"
               >
                 <div className="flex items-center">
                   {column.header}
@@ -158,7 +151,7 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
               {columns.map((column) => (
                 <td
                   key={column.accessor}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                  className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap"
                 >
                   {row[column.accessor]}
                 </td>

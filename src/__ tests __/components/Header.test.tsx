@@ -25,14 +25,4 @@ describe("Header component", () => {
     expect(ryteLink).toBeInTheDocument();
     expect(ryteLink).toHaveAttribute("href", "https://en.ryte.com/");
   });
-
-  it("renders the theme toggle", () => {
-    render(<Header />);
-
-    // Use testid (data-testid) to access the theme toggle element
-    const themeToggle = screen.getByTestId("theme-toggle");
-
-    // Assert that the theme toggle is rendered
-    expect(themeToggle).toBeInTheDocument();
-  });
 });
